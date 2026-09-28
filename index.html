@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Distribución Hipergeométrica</title>
+    <title>Distribuciones Hipergeométrica y Geométrica</title>
 
     <!-- MathJax para mostrar las fórmulas matemáticas -->
     <script>
@@ -79,7 +79,7 @@
             font-size: 1.05rem;
         }
 
-        /* Fórmula principal */
+        /* Fórmulas */
 
         .formula {
             background: #f1f3f5;
@@ -115,7 +115,34 @@
             color: #263238;
         }
 
-        /* Lista de condiciones */
+        /* Media y varianza */
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .estadistica {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .estadistica h3 {
+            margin-top: 0;
+        }
+
+        .formula-pequena {
+            font-size: 1.35rem;
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        /* Características */
 
         .condiciones {
             padding-left: 25px;
@@ -125,7 +152,7 @@
             margin-bottom: 8px;
         }
 
-        /* Calculadora */
+        /* Calculadoras */
 
         .calculadora {
             display: grid;
@@ -190,6 +217,16 @@
             overflow-x: auto;
         }
 
+        /* Separador */
+
+        .separador {
+            height: 5px;
+            background: #263238;
+            width: 100%;
+            margin: 45px 0;
+            border-radius: 5px;
+        }
+
         footer {
             text-align: center;
             padding: 25px;
@@ -199,6 +236,10 @@
         @media (max-width: 750px) {
 
             .calculadora {
+                grid-template-columns: 1fr;
+            }
+
+            .estadisticas {
                 grid-template-columns: 1fr;
             }
 
@@ -218,15 +259,16 @@
 
 <body>
 
-    <!-- ENCABEZADO -->
+    <!-- ======================================
+         ENCABEZADO
+    ======================================= -->
 
     <header>
 
-        <h1>Distribución Hipergeométrica</h1>
+        <h1>Distribuciones de Probabilidad</h1>
 
         <p>
-            Probabilidad de obtener un número determinado de éxitos
-            al seleccionar elementos sin reemplazo
+            Distribución Hipergeométrica y Distribución Geométrica
         </p>
 
     </header>
@@ -234,11 +276,14 @@
 
     <div class="contenedor">
 
-        <!-- INTRODUCCIÓN -->
+
+        <!-- ======================================
+             DISTRIBUCIÓN HIPERGEOMÉTRICA
+        ======================================= -->
 
         <section class="tarjeta">
 
-            <h2>¿Qué es la distribución hipergeométrica?</h2>
+            <h2>Distribución Hipergeométrica</h2>
 
             <p class="descripcion">
 
@@ -258,7 +303,7 @@
         </section>
 
 
-        <!-- FORMULA -->
+        <!-- FUNCIÓN DE PROBABILIDAD -->
 
         <section class="tarjeta">
 
@@ -280,9 +325,11 @@
 
             <p>
 
-                Donde \(X\) representa el <strong>número de éxitos en la muestra</strong>.
+                Donde \(X\) representa el
+                <strong>número de éxitos en la muestra</strong>.
 
             </p>
+
 
             <div class="variables">
 
@@ -326,7 +373,7 @@
         </section>
 
 
-        <!-- CONDICIONES -->
+        <!-- CARACTERÍSTICAS -->
 
         <section class="tarjeta">
 
@@ -349,15 +396,68 @@
         </section>
 
 
-        <!-- CALCULADORA -->
+        <!-- MEDIA Y VARIANZA -->
+
+        <section class="tarjeta">
+
+            <h2>Media y varianza</h2>
+
+            <div class="estadisticas">
+
+                <div class="estadistica">
+
+                    <h3>Media o valor esperado</h3>
+
+                    <div class="formula-pequena">
+
+                        \[
+                        E(X)=n\frac{K}{N}
+                        \]
+
+                    </div>
+
+                    <p>
+                        Representa el número promedio de éxitos
+                        que se espera obtener en la muestra.
+                    </p>
+
+                </div>
+
+
+                <div class="estadistica">
+
+                    <h3>Varianza</h3>
+
+                    <div class="formula-pequena">
+
+                        \[
+                        V(X)=
+                        n\frac{K}{N}
+                        \left(1-\frac{K}{N}\right)
+                        \frac{N-n}{N-1}
+                        \]
+
+                    </div>
+
+                    <p>
+                        Mide la dispersión del número de éxitos
+                        alrededor de su valor esperado.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALCULADORA HIPERGEOMÉTRICA -->
 
         <section class="tarjeta">
 
             <h2>Calculadora hipergeométrica</h2>
 
             <div class="calculadora">
-
-                <!-- FORMULARIO -->
 
                 <div class="formulario">
 
@@ -409,32 +509,37 @@
                     >
 
 
-                    <button onclick="calcular()">
+                    <button onclick="calcularHipergeometrica()">
+
                         Calcular probabilidad
+
                     </button>
 
                 </div>
 
 
-                <!-- RESULTADO -->
-
                 <div class="resultado">
 
                     <h3>Resultado</h3>
 
-                    <p id="explicacion">
+                    <p id="explicacionHiper">
+
                         Introduce los valores y presiona el botón.
+
                     </p>
 
                     <div
-                        id="resultadoNumero"
+                        id="resultadoHiper"
                         class="resultado-numero">
+
                         —
+
                     </div>
 
                     <div
-                        id="formulaCalculo"
+                        id="formulaHiper"
                         class="formula-calculo">
+
                     </div>
 
                 </div>
@@ -444,20 +549,27 @@
         </section>
 
 
-        <!-- EJEMPLO CONCEPTUAL -->
+        <!-- EJEMPLO HIPERGEOMÉTRICO -->
 
         <section class="tarjeta">
 
-            <h2>Interpretación</h2>
+            <h2>Ejemplo hipergeométrico</h2>
 
             <p>
 
-                Por ejemplo, si una población tiene 20 elementos,
-                5 de ellos son éxitos y se seleccionan 4 elementos,
-                la distribución hipergeométrica permite calcular la
-                probabilidad de obtener exactamente 2 éxitos.
+                Una caja contiene <strong>20 baterías</strong>,
+                de las cuales <strong>5 son defectuosas</strong>.
+                Se seleccionan <strong>4 baterías sin reemplazo</strong>.
 
             </p>
+
+            <p>
+
+                ¿Cuál es la probabilidad de obtener exactamente
+                <strong>2 baterías defectuosas</strong>?
+
+            </p>
+
 
             <div class="formula">
 
@@ -473,23 +585,360 @@
 
             </div>
 
+            <p>
+
+                En este caso:
+
+            </p>
+
+            <ul>
+
+                <li>$N=20$</li>
+                <li>$K=5$</li>
+                <li>$n=4$</li>
+                <li>$x=2$</li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- SEPARADOR -->
+
+        <div class="separador"></div>
+
+
+        <!-- ======================================
+             DISTRIBUCIÓN GEOMÉTRICA
+        ======================================= -->
+
+        <section class="tarjeta">
+
+            <h2>Distribución Geométrica</h2>
+
+            <p class="descripcion">
+
+                La distribución geométrica se utiliza cuando se realizan
+                ensayos independientes, cada uno con la misma probabilidad
+                de éxito, hasta obtener el <strong>primer éxito</strong>.
+
+            </p>
+
+            <p class="descripcion">
+
+                En esta página se utiliza la convención en la que
+                \(X\) representa el <strong>número de ensayos necesarios
+                para obtener el primer éxito</strong>.
+
+            </p>
+
+        </section>
+
+
+        <!-- FUNCIÓN GEOMÉTRICA -->
+
+        <section class="tarjeta">
+
+            <h2>Función de probabilidad</h2>
+
+            <div class="formula">
+
+                \[
+                P(X=x)=(1-p)^{x-1}p
+                \]
+
+            </div>
+
+            <p>
+
+                Donde \(X\) representa el número de ensayos hasta obtener
+                el primer éxito.
+
+            </p>
+
+
+            <div class="variables">
+
+                <div class="variable">
+
+                    <strong>$X$</strong>
+
+                    Número de ensayos hasta obtener el primer éxito.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$x$</strong>
+
+                    Valor específico que puede tomar $X$.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$p$</strong>
+
+                    Probabilidad de éxito en cada ensayo.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$1-p$</strong>
+
+                    Probabilidad de fracaso en cada ensayo.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CARACTERÍSTICAS GEOMÉTRICAS -->
+
+        <section class="tarjeta">
+
+            <h2>Características</h2>
+
+            <ul class="condiciones">
+
+                <li>Los ensayos son independientes.</li>
+
+                <li>La probabilidad de éxito permanece constante.</li>
+
+                <li>Cada ensayo tiene solamente dos resultados: éxito o fracaso.</li>
+
+                <li>El proceso termina cuando aparece el primer éxito.</li>
+
+                <li>El valor de $X$ comienza en 1.</li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- MEDIA Y VARIANZA GEOMÉTRICA -->
+
+        <section class="tarjeta">
+
+            <h2>Media y varianza</h2>
+
+            <div class="estadisticas">
+
+                <div class="estadistica">
+
+                    <h3>Media o valor esperado</h3>
+
+                    <div class="formula-pequena">
+
+                        \[
+                        E(X)=\frac{1}{p}
+                        \]
+
+                    </div>
+
+                    <p>
+
+                        Indica el número promedio de ensayos
+                        necesarios para obtener el primer éxito.
+
+                    </p>
+
+                </div>
+
+
+                <div class="estadistica">
+
+                    <h3>Varianza</h3>
+
+                    <div class="formula-pequena">
+
+                        \[
+                        V(X)=
+                        \frac{1-p}{p^2}
+                        \]
+
+                    </div>
+
+                    <p>
+
+                        Mide la dispersión del número de ensayos
+                        alrededor del valor esperado.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CALCULADORA GEOMÉTRICA -->
+
+        <section class="tarjeta">
+
+            <h2>Calculadora geométrica</h2>
+
+            <div class="calculadora">
+
+                <div class="formulario">
+
+                    <label for="p">
+
+                        p = Probabilidad de éxito
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="p"
+                        value="0.2"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    >
+
+
+                    <label for="xGeometrica">
+
+                        x = Número de ensayo
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="xGeometrica"
+                        value="3"
+                        min="1"
+                    >
+
+
+                    <button onclick="calcularGeometrica()">
+
+                        Calcular probabilidad
+
+                    </button>
+
+                </div>
+
+
+                <div class="resultado">
+
+                    <h3>Resultado</h3>
+
+                    <p id="explicacionGeo">
+
+                        Introduce los valores y presiona el botón.
+
+                    </p>
+
+                    <div
+                        id="resultadoGeo"
+                        class="resultado-numero">
+
+                        —
+
+                    </div>
+
+                    <div
+                        id="formulaGeo"
+                        class="formula-calculo">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EJEMPLO GEOMÉTRICO -->
+
+        <section class="tarjeta">
+
+            <h2>Ejemplo geométrico</h2>
+
+            <p>
+
+                La probabilidad de que una pieza producida sea defectuosa
+                es del <strong>20%</strong>.
+
+            </p>
+
+            <p>
+
+                Si se inspeccionan piezas una por una,
+                ¿cuál es la probabilidad de que la
+                <strong>tercera pieza</strong> sea la primera defectuosa?
+
+            </p>
+
+
+            <div class="formula">
+
+                \[
+                P(X=3)=(1-0.20)^{3-1}(0.20)
+                \]
+
+                \[
+                P(X=3)=(0.80)^2(0.20)
+                \]
+
+            </div>
+
+            <p>
+
+                Por lo tanto, la probabilidad es:
+
+            </p>
+
+            <div class="formula">
+
+                \[
+                P(X=3)=0.128
+                \]
+
+            </div>
+
+            <p>
+
+                Es decir, existe una probabilidad del
+                <strong>12.8%</strong> de que la tercera pieza
+                sea la primera defectuosa.
+
+            </p>
+
         </section>
 
     </div>
 
 
+    <!-- ======================================
+         PIE DE PÁGINA
+    ======================================= -->
+
     <footer>
 
-        Distribución Hipergeométrica · Probabilidad y Estadística
+        Distribuciones de Probabilidad · Probabilidad y Estadística
 
     </footer>
 
 
     <script>
 
-        // ----------------------------------
-        // FACTORIAL
-        // ----------------------------------
+        /* ==========================================
+           FUNCIONES GENERALES
+        ========================================== */
+
+
+        // Factorial
 
         function factorial(numero) {
 
@@ -507,9 +956,7 @@
         }
 
 
-        // ----------------------------------
-        // COMBINACIONES
-        // ----------------------------------
+        // Combinaciones
 
         function combinacion(n, r) {
 
@@ -522,25 +969,33 @@
         }
 
 
-        // ----------------------------------
-        // CALCULAR
-        // ----------------------------------
+        /* ==========================================
+           CALCULADORA HIPERGEOMÉTRICA
+        ========================================== */
 
-        function calcular() {
+        function calcularHipergeometrica() {
 
-            const N = Number(document.getElementById("N").value);
-            const K = Number(document.getElementById("K").value);
-            const n = Number(document.getElementById("n").value);
-            const x = Number(document.getElementById("x").value);
+            const N =
+                Number(document.getElementById("N").value);
 
-            const resultadoNumero =
-                document.getElementById("resultadoNumero");
+            const K =
+                Number(document.getElementById("K").value);
+
+            const n =
+                Number(document.getElementById("n").value);
+
+            const x =
+                Number(document.getElementById("x").value);
+
+
+            const resultado =
+                document.getElementById("resultadoHiper");
 
             const explicacion =
-                document.getElementById("explicacion");
+                document.getElementById("explicacionHiper");
 
-            const formulaCalculo =
-                document.getElementById("formulaCalculo");
+            const formula =
+                document.getElementById("formulaHiper");
 
 
             // Validaciones
@@ -554,19 +1009,18 @@
                 n > N
             ) {
 
-                resultadoNumero.textContent = "Datos inválidos";
+                resultado.textContent = "Datos inválidos";
 
                 explicacion.textContent =
                     "Revisa los valores introducidos.";
 
-                formulaCalculo.innerHTML = "";
+                formula.innerHTML = "";
 
                 return;
             }
 
 
-            // Comprobar si el número de éxitos solicitado
-            // es físicamente posible
+            // Comprobar si x es posible
 
             if (
                 x > K ||
@@ -574,18 +1028,18 @@
                 (n - x) > (N - K)
             ) {
 
-                resultadoNumero.textContent = "0%";
+                resultado.textContent = "0%";
 
                 explicacion.textContent =
                     "Ese número de éxitos no es posible con los datos proporcionados.";
 
-                formulaCalculo.innerHTML = "";
+                formula.innerHTML = "";
 
                 return;
             }
 
 
-            // Cálculo de la fórmula
+            // Cálculo
 
             const combinacionExitos =
                 combinacion(K, x);
@@ -603,8 +1057,9 @@
 
             // Mostrar resultado
 
-            resultadoNumero.textContent =
+            resultado.textContent =
                 (probabilidad * 100).toFixed(4) + "%";
+
 
             explicacion.textContent =
                 "La probabilidad de obtener exactamente " +
@@ -612,9 +1067,9 @@
                 " éxitos en la muestra es:";
 
 
-            // Mostrar fórmula utilizada
+            // Mostrar fórmula
 
-            formulaCalculo.innerHTML = `
+            formula.innerHTML = `
 
                 \\[
                 P(X=${x})=
@@ -628,16 +1083,96 @@
 
             `;
 
-            // Volver a procesar la fórmula con MathJax
 
             MathJax.typesetPromise();
 
         }
 
 
-        // Calcular el ejemplo inicial automáticamente
+        /* ==========================================
+           CALCULADORA GEOMÉTRICA
+        ========================================== */
 
-        calcular();
+        function calcularGeometrica() {
+
+            const p =
+                Number(document.getElementById("p").value);
+
+            const x =
+                Number(document.getElementById("xGeometrica").value);
+
+
+            const resultado =
+                document.getElementById("resultadoGeo");
+
+            const explicacion =
+                document.getElementById("explicacionGeo");
+
+            const formula =
+                document.getElementById("formulaGeo");
+
+
+            // Validaciones
+
+            if (
+                p <= 0 ||
+                p > 1 ||
+                x < 1
+            ) {
+
+                resultado.textContent = "Datos inválidos";
+
+                explicacion.textContent =
+                    "p debe estar entre 0 y 1, y x debe ser mayor o igual a 1.";
+
+                formula.innerHTML = "";
+
+                return;
+            }
+
+
+            // Probabilidad geométrica
+
+            const probabilidad =
+                Math.pow(1 - p, x - 1) * p;
+
+
+            // Mostrar resultado
+
+            resultado.textContent =
+                (probabilidad * 100).toFixed(4) + "%";
+
+
+            explicacion.textContent =
+                "La probabilidad de obtener el primer éxito en el ensayo " +
+                x +
+                " es:";
+
+
+            // Mostrar fórmula
+
+            formula.innerHTML = `
+
+                \\[
+                P(X=${x})=
+                (1-${p})^{${x}-1}(${p})
+                \\]
+
+            `;
+
+
+            MathJax.typesetPromise();
+
+        }
+
+
+        /* ==========================================
+           CÁLCULOS INICIALES
+        ========================================== */
+
+        calcularHipergeometrica();
+
+        calcularGeometrica();
 
     </script>
 
