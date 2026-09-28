@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Distribución Hipergeométrica</title>
+
+    <!-- MathJax para mostrar las fórmulas matemáticas -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+
+    <script async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #263238;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 2.4rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #d7dde0;
+        }
+
+        .contenedor {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 28px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #263238;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: #37474f;
+        }
+
+        .descripcion {
+            font-size: 1.05rem;
+        }
+
+        /* Fórmula principal */
+
+        .formula {
+            background: #f1f3f5;
+            border: 1px solid #d8dde1;
+            border-radius: 10px;
+            padding: 30px 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-size: 1.7rem;
+            overflow-x: auto;
+        }
+
+        /* Definición de variables */
+
+        .variables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .variable {
+            padding: 18px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .variable strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: #263238;
+        }
+
+        /* Lista de condiciones */
+
+        .condiciones {
+            padding-left: 25px;
+        }
+
+        .condiciones li {
+            margin-bottom: 8px;
+        }
+
+        /* Calculadora */
+
+        .calculadora {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .formulario {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #37474f;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #263238;
+        }
+
+        .resultado {
+            background: #eceff1;
+            padding: 25px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .resultado-numero {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #263238;
+        }
+
+        .formula-calculo {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+        }
+
+        @media (max-width: 750px) {
+
+            .calculadora {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .formula {
+                font-size: 1.3rem;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- ENCABEZADO -->
+
+    <header>
+
+        <h1>Distribución Hipergeométrica</h1>
+
+        <p>
+            Probabilidad de obtener un número determinado de éxitos
+            al seleccionar elementos sin reemplazo
+        </p>
+
+    </header>
+
+
+    <div class="contenedor">
+
+        <!-- INTRODUCCIÓN -->
+
+        <section class="tarjeta">
+
+            <h2>¿Qué es la distribución hipergeométrica?</h2>
+
+            <p class="descripcion">
+
+                La distribución hipergeométrica permite calcular la probabilidad
+                de obtener un determinado número de éxitos al seleccionar una
+                muestra de una población finita <strong>sin reemplazo</strong>.
+
+            </p>
+
+            <p class="descripcion">
+
+                Se utiliza cuando la población contiene elementos clasificados
+                en dos categorías: <strong>éxitos</strong> y <strong>fracasos</strong>.
+
+            </p>
+
+        </section>
+
+
+        <!-- FORMULA -->
+
+        <section class="tarjeta">
+
+            <h2>Función de probabilidad</h2>
+
+            <div class="formula">
+
+                \[
+                P(X=x)=
+                \frac{
+                \binom{K}{x}
+                \binom{N-K}{n-x}
+                }{
+                \binom{N}{n}
+                }
+                \]
+
+            </div>
+
+            <p>
+
+                Donde \(X\) representa el <strong>número de éxitos en la muestra</strong>.
+
+            </p>
+
+            <div class="variables">
+
+                <div class="variable">
+
+                    <strong>$N$</strong>
+
+                    Tamaño total de la población.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$K$</strong>
+
+                    Número de éxitos presentes en la población.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$n$</strong>
+
+                    Tamaño de la muestra.
+
+                </div>
+
+
+                <div class="variable">
+
+                    <strong>$x$</strong>
+
+                    Número de éxitos en la muestra.
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONDICIONES -->
+
+        <section class="tarjeta">
+
+            <h2>Características</h2>
+
+            <ul class="condiciones">
+
+                <li>La población es finita.</li>
+
+                <li>La muestra se selecciona sin reemplazo.</li>
+
+                <li>Los elementos se clasifican como éxito o fracaso.</li>
+
+                <li>El tamaño de la población es $N$.</li>
+
+                <li>El tamaño de la muestra es $n$.</li>
+
+            </ul>
+
+        </section>
+
+
+        <!-- CALCULADORA -->
+
+        <section class="tarjeta">
+
+            <h2>Calculadora hipergeométrica</h2>
+
+            <div class="calculadora">
+
+                <!-- FORMULARIO -->
+
+                <div class="formulario">
+
+                    <label for="N">
+                        N = Población total
+                    </label>
+
+                    <input
+                        type="number"
+                        id="N"
+                        value="20"
+                        min="1"
+                    >
+
+
+                    <label for="K">
+                        K = Número de éxitos
+                    </label>
+
+                    <input
+                        type="number"
+                        id="K"
+                        value="5"
+                        min="0"
+                    >
+
+
+                    <label for="n">
+                        n = Tamaño de la muestra
+                    </label>
+
+                    <input
+                        type="number"
+                        id="n"
+                        value="4"
+                        min="1"
+                    >
+
+
+                    <label for="x">
+                        x = Éxitos deseados
+                    </label>
+
+                    <input
+                        type="number"
+                        id="x"
+                        value="2"
+                        min="0"
+                    >
+
+
+                    <button onclick="calcular()">
+                        Calcular probabilidad
+                    </button>
+
+                </div>
+
+
+                <!-- RESULTADO -->
+
+                <div class="resultado">
+
+                    <h3>Resultado</h3>
+
+                    <p id="explicacion">
+                        Introduce los valores y presiona el botón.
+                    </p>
+
+                    <div
+                        id="resultadoNumero"
+                        class="resultado-numero">
+                        —
+                    </div>
+
+                    <div
+                        id="formulaCalculo"
+                        class="formula-calculo">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EJEMPLO CONCEPTUAL -->
+
+        <section class="tarjeta">
+
+            <h2>Interpretación</h2>
+
+            <p>
+
+                Por ejemplo, si una población tiene 20 elementos,
+                5 de ellos son éxitos y se seleccionan 4 elementos,
+                la distribución hipergeométrica permite calcular la
+                probabilidad de obtener exactamente 2 éxitos.
+
+            </p>
+
+            <div class="formula">
+
+                \[
+                P(X=2)=
+                \frac{
+                \binom{5}{2}
+                \binom{15}{2}
+                }{
+                \binom{20}{4}
+                }
+                \]
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <footer>
+
+        Distribución Hipergeométrica · Probabilidad y Estadística
+
+    </footer>
+
+
+    <script>
+
+        // ----------------------------------
+        // FACTORIAL
+        // ----------------------------------
+
+        function factorial(numero) {
+
+            if (numero < 0) {
+                return NaN;
+            }
+
+            let resultado = 1;
+
+            for (let i = 2; i <= numero; i++) {
+                resultado *= i;
+            }
+
+            return resultado;
+        }
+
+
+        // ----------------------------------
+        // COMBINACIONES
+        // ----------------------------------
+
+        function combinacion(n, r) {
+
+            if (r < 0 || r > n) {
+                return 0;
+            }
+
+            return factorial(n) /
+                (factorial(r) * factorial(n - r));
+        }
+
+
+        // ----------------------------------
+        // CALCULAR
+        // ----------------------------------
+
+        function calcular() {
+
+            const N = Number(document.getElementById("N").value);
+            const K = Number(document.getElementById("K").value);
+            const n = Number(document.getElementById("n").value);
+            const x = Number(document.getElementById("x").value);
+
+            const resultadoNumero =
+                document.getElementById("resultadoNumero");
+
+            const explicacion =
+                document.getElementById("explicacion");
+
+            const formulaCalculo =
+                document.getElementById("formulaCalculo");
+
+
+            // Validaciones
+
+            if (
+                N <= 0 ||
+                K < 0 ||
+                n <= 0 ||
+                x < 0 ||
+                K > N ||
+                n > N
+            ) {
+
+                resultadoNumero.textContent = "Datos inválidos";
+
+                explicacion.textContent =
+                    "Revisa los valores introducidos.";
+
+                formulaCalculo.innerHTML = "";
+
+                return;
+            }
+
+
+            // Comprobar si el número de éxitos solicitado
+            // es físicamente posible
+
+            if (
+                x > K ||
+                x > n ||
+                (n - x) > (N - K)
+            ) {
+
+                resultadoNumero.textContent = "0%";
+
+                explicacion.textContent =
+                    "Ese número de éxitos no es posible con los datos proporcionados.";
+
+                formulaCalculo.innerHTML = "";
+
+                return;
+            }
+
+
+            // Cálculo de la fórmula
+
+            const combinacionExitos =
+                combinacion(K, x);
+
+            const combinacionFracasos =
+                combinacion(N - K, n - x);
+
+            const combinacionMuestra =
+                combinacion(N, n);
+
+            const probabilidad =
+                (combinacionExitos * combinacionFracasos) /
+                combinacionMuestra;
+
+
+            // Mostrar resultado
+
+            resultadoNumero.textContent =
+                (probabilidad * 100).toFixed(4) + "%";
+
+            explicacion.textContent =
+                "La probabilidad de obtener exactamente " +
+                x +
+                " éxitos en la muestra es:";
+
+
+            // Mostrar fórmula utilizada
+
+            formulaCalculo.innerHTML = `
+
+                \\[
+                P(X=${x})=
+                \\frac{
+                \\binom{${K}}{${x}}
+                \\binom{${N-K}}{${n-x}}
+                }{
+                \\binom{${N}}{${n}}
+                }
+                \\]
+
+            `;
+
+            // Volver a procesar la fórmula con MathJax
+
+            MathJax.typesetPromise();
+
+        }
+
+
+        // Calcular el ejemplo inicial automáticamente
+
+        calcular();
+
+    </script>
+
+</body>
+
+</html>
